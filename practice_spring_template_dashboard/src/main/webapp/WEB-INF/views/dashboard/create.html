@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:replace="layout/head :: head-1" />
+</head>
+
+<body>
+<h3>Add Customer</h3>
+<p>
+    <a th:href="@{/dashboard}">
+        Back to customer list
+    </a>
+</p>
+
+    <div class="container-fluid position-relative d-flex p-0">
+
+
+        <!-- Sidebar Start -->
+        <th:block th:replace="layout/head :: head-2" />
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <th:block th:replace="layout/head :: head-3" />
+            <!-- Navbar End -->
+
+            <div>
+                <div class="row mt-2">
+                    <div class="col-2">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="col-9">
+                        <input style="background-color: white" type="text" name="name" id="name" class="form-control" placeholder="Name">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-2">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col-9">
+                        <input style="background-color: white" type="text" name="email" id="email" class="form-control" placeholder="Email">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-2">
+                        <label for="address">Address</label>
+                    </div>
+                    <div class="col-9">
+                        <input style="background-color: white" type="text" name="address" id="address" class="form-control" placeholder="Address">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Start -->
+            <th:block th:replace="layout/footer :: footer-2" />
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <th:block th:replace="layout/footer :: footer-1" />
+</body>
+
+</html>
