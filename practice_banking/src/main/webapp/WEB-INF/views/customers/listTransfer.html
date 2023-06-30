@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>List of customers</title>
+  <th:block th:replace="/customers/layout/head :: head"></th:block>
+</head>
+
+<body>
+<div class="container">
+  <div class="table-title">
+    <div class="row">
+      <div class="col-sm-5">
+        <h1>List of customers</h1>
+      </div>
+      <div class="col-sm-7">
+        <a href="/customers/create" class="btn btn-outline-light">
+          <i class="fa-solid fa-plus"></i>
+          <span>Add New Customer</span>
+        </a>
+        <a href="/transferInfo" class="btn btn-outline-light">
+          <i class="fa fa-history" aria-hidden="true"></i>
+          <span>Transfer money Information</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <table class="table table-hover table-borderless">
+      <thead>
+      <tr>
+        <th STYLE="text-align: center">#</th>
+        <th STYLE="text-align: center">Sender ID</th>
+        <th STYLE="text-align: center">Recipient ID</th>
+        <th STYLE="text-align: center">Transfer Amount</th>
+        <th STYLE="text-align: center">Fees (%)</th>
+        <th STYLE="text-align: center">Fees Amount</th>
+        <th STYLE="text-align: center">Transaction Amount</th>
+      </tr>
+      </thead>
+      <tbody id="tbCustomer">
+
+      <th:block th:each="transfers : ${transfers}">
+        <tr>
+          <td STYLE="text-align: center" th:text="${transfers.id}"></td>
+          <td STYLE="text-align: center" th:text="${transfers.sender_id}"></td>
+          <td STYLE="text-align: center" th:text="${transfers.recipient_id}"></td>
+          <td STYLE="text-align: center" th:text="${transfers.transfer_amount}"></td>
+          <td STYLE="text-align: center" th:text="${transfers.fees}"></td>
+          <td STYLE="text-align: center" th:text="${transfers.fees_amount}"></td>
+          <td STYLE="text-align: center" th:text="${transfers.transaction_amount}"></td>
+        </tr>
+      </th:block>
+      </tbody>
+    </table>
+    <a href="/customers">
+      <button type="submit" class="btn btn-outline-primary">
+        Back
+      </button>
+    </a>
+  </div>
+</div>
+
+<th:block th:replace="/customers/layout/script :: script"></th:block>
+
+</body>
+</html>

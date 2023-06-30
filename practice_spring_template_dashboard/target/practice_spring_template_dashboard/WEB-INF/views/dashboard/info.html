@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <th:block th:replace="layout/head :: head-1" />
+</head>
+
+<body>
+<div class="container-fluid position-relative d-flex p-0">
+
+
+  <!-- Sidebar Start -->
+  <th:block th:replace="layout/head :: head-2" />
+  <!-- Sidebar End -->
+
+  <div class="content">
+    <!-- Navbar Start -->
+    <th:block th:replace="layout/head :: head-3"/>
+    <!-- Navbar End -->
+    <h3 style="margin: 15px">Customers</h3>
+
+    <div class="container-fluid pt-4 px-4">
+      <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+          <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">List Customer</h6>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th colspan="2">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <th:block th:object="${customer}">
+                <tr>
+                  <td th:text="*{id}"></td>
+                  <td th:text="*{fullName}"></td>
+                  <td th:text="*{email}"></td>
+                  <td th:text="*{phone}"></td>
+                  <td th:text="*{address}"></td>
+                  <td>
+                    <a th:href="@{/dashboard/edit/{id}(id=*{id})}">Edit</a>
+                  </td>
+                  <td>
+                    <a th:href="@{/dashboard/delete/{id}(id=*{id})}">Remove</a>
+                  </td>
+                </tr>
+              </th:block>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Start -->
+    <th:block th:replace="layout/footer :: footer-2"/>
+    <!-- Footer End -->
+  </div>
+
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
+
+<!-- JavaScript Libraries -->
+
+<th:block th:replace="layout/footer :: footer-1" />
+<!-- Template Javascript -->
+
+</body>
+
+</html>

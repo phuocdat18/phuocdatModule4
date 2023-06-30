@@ -1,0 +1,11 @@
+com\cg\model\Deposit.class
+com\cg\service\IGeneralService.class
+com\cg\config\AppConfig.class
+com\cg\model\WithDraw.class
+com\cg\model\Customer.class
+com\cg\model\Transfer.class
+com\cg\repository\CustomerRepository.class
+com\cg\controller\CustomerController.class
+com\cg\service\customer\ICustomerService.class
+com\cg\config\AppInit.class
+com\cg\service\customer\CustomerServiceImpl.class

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <th:block th:replace="layout/head :: head-1" />
+</head>
+
+<body>
+<div class="container-fluid position-relative d-flex p-0">
+
+
+  <!-- Sidebar Start -->
+  <th:block th:replace="layout/head :: head-2" />
+  <!-- Sidebar End -->
+
+
+  <!-- Content Start -->
+  <div class="content">
+    <!-- Navbar Start -->
+    <th:block th:replace="layout/head :: head-3" />
+
+    <h3 style="margin: 15px">Customers</h3>
+    <!-- Navbar End -->
+    <div class="container-fluid pt-4 px-4">
+      <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+          <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">Delete Customer</h6>
+            <div>
+              <form method="post" autocomplete="off">
+                <div class="row mt-3">
+                  <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                    <label for="senderID" class="form-label">Customer ID</label>
+                    <input style="background-color: white" type="number" class="form-control" id="senderID"
+                           th:value="${customer.id}" readonly
+                    >
+                  </div>
+                  <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                    <label for="senderName" class="form-label">Customer Name</label>
+                    <input style="background-color: white" type="text" class="form-control" id="senderName"
+                           th:value="${customer.fullName}" readonly
+                    >
+                  </div>
+                  <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                    <label for="email" class="form-label">Customer Email</label>
+                    <input style="background-color: white" type="email" class="form-control" id="email"
+                           th:value="${customer.email}" readonly
+                    >
+                  </div>
+                  <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                    <label for="balance" class="form-label">Customer Balance</label>
+                    <input style="background-color: white" type="number" class="form-control" id="balance"
+                           th:value="${customer.balance}" readonly
+                    >
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                    <label for="withdraw" class="form-label">WithDraw Amount (VND)</label>
+                    <input style="background-color: white" type="number" class="form-control" id="withdraw" name="withdraw" th:value="0">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-outline-warning">
+                  <i class="fas fa-minus-circle"></i>
+                  Deposit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div th:if="${success}">
+      <script>
+        window.onload = function (){
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Rút tiền thành công',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      </script>
+    </div>
+    <!-- Footer Start -->
+    <th:block th:replace="layout/footer :: footer-2" />
+    <!-- Footer End -->
+  </div>
+  <!-- Content End -->
+
+
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
+
+<th:block th:replace="layout/footer :: footer-1" />
+</body>
+
+</html>

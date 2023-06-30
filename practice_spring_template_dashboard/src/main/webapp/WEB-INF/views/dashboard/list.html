@@ -2,85 +2,124 @@
 <html lang="en">
 
 <head>
-  <th:block th:replace="layout/head :: head-1" />
+    <th:block th:replace="layout/head :: head-1"/>
 </head>
 
 <body>
 <div class="container-fluid position-relative d-flex p-0">
 
 
-  <!-- Sidebar Start -->
-  <th:block th:replace="layout/head :: head-2" />
-  <!-- Sidebar End -->
+    <!-- Sidebar Start -->
+    <th:block th:replace="layout/head :: head-2"/>
+    <!-- Sidebar End -->
 
-  <!-- Content Start -->
-  <div class="content">
-    <!-- Navbar Start -->
-    <th:block th:replace="layout/head :: head-3" />
-    <!-- Navbar End -->
-    <h3 style="margin: 15px">Customers</h3>
-    <div class="container-fluid pt-4 px-4">
-      <div class="row g-4">
-        <div class="col-sm-12 col-xl-12">
-          <div class="bg-secondary rounded h-100 p-4">
-            <h6 class="mb-4">List Customer</h6>
-            <table class="table">
-              <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Address</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-                <th scope="col">View</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr th:each="row,rowStat : ${customers}">
-                <td th:text="${row.getName()}"></td>
-                <td th:text="${row.getEmail()}"></td>
-                <td th:text="${row.getAddress()}"></td>
-                <td><a th:href="@{/customer/{id}/edit(id=${row.getId()})}">edit</a></td>
-                <td><a th:href="@{/customer/{id}/delete(id=${row.getId()})}">delete</a></td>
-                <td><a th:href="@{/customer/{id}/view(id=${row.getId()})}">view</a></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+    <!-- Content Start -->
+    <div class="content">
+        <!-- Navbar Start -->
+        <th:block th:replace="layout/head :: head-3"/>
+        <!-- Navbar End -->
+        <h3 style="margin: 15px">Customers</h3>
+
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-12">
+                    <div class="bg-secondary rounded h-100 p-4">
+                        <h6 class="mb-4">List Customer</h6>
+                        <table class="table">
+
+
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Balance</th>
+                                <th colspan="5">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="item : ${customers}">
+                                <tr>
+                                    <td th:text="${item.id}"></td>
+                                    <td th:text="${item.fullName}"></td>
+                                    <td th:text="${item.email}"></td>
+                                    <td th:text="${item.phone}"></td>
+                                    <td th:text="${item.address}"></td>
+                                    <td th:text="${item.balance}"></td>
+                                    <td>
+                                        <a title="Edit" th:href="@{/dashboard/edit/{id}(id=${item.id})}" class="btn btn-outline-primary">
+                                            <i class="fas fa-user-edit"></i>
+                                        </a>
+                                        <a title="Deposit" th:href="@{/dashboard/deposit/{id}(id=${item.id})}" class="btn btn-outline-secondary">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+                                        <a title="Withdraw" th:href="@{/dashboard/withdraw/{id}(id=${item.id})}" class="btn btn-outline-success">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </a>
+                                        <a title="Transfer" th:href="@{/dashboard/transfer/{id}(id=${item.id})}" class="btn btn-outline-warning">
+                                            <i class="fas fa-exchange-alt"></i>
+                                        </a>
+                                        <a title="Suspend" th:href="@{/dashboard/delete/{id}(id=${item.id})}" class="btn btn-outline-danger">
+                                            <i class="fas fa-ban"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+
+        <p>
+        <div>
+            <a th:href="@{/dashboard/create}">
+                <button type="submit" class="btn btn-primary mr-1" style="margin-left: 25px">Create</button>
+            </a>
+        </div>
+        </p>
+
+        <div th:if="${success}">
+            <script>
+                window.onload = function (){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Cập nhật thành công',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            </script>
+        </div>
+
+        <!-- Footer Start -->
+        <th:block th:replace="layout/footer :: footer-2"/>
+        <!-- Footer End -->
     </div>
-
-    <p>
-      <div>
-          <a th:href="@{/dashboard/create}">
-              <button type="submit" class="btn btn-primary mr-1" style="margin-left: 25px">Create</button>
-          </a>
-      </div>
-    </p>
-
-    <div class="notify">
-      <div th:if="${success}">
-        <span th:text="${success}"></span>
-      </div>
-    </div>
-
-    <!-- Footer Start -->
-    <th:block th:replace="layout/footer :: footer-2" />
-    <!-- Footer End -->
-  </div>
-  <!-- Content End -->
+    <!-- Content End -->
 
 
-  <!-- Back to Top -->
-  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 </div>
 
 <!-- JavaScript Libraries -->
 
-<th:block th:replace="layout/footer :: footer-1" />
+<th:block th:replace="layout/footer :: footer-1"/>
 <!-- Template Javascript -->
 
 </body>
 
 </html>
+
+
+
+
+
+
+

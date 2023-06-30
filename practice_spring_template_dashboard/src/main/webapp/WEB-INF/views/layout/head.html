@@ -26,6 +26,10 @@
 
     <!-- Template Stylesheet -->
     <link href="/assets/css/style.css" rel="stylesheet">
+
+    <script src="/assets/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="/assets/sweetalert2/sweetalert2.min.css"></script>
+
 </th:block>
 
 <th:block th:fragment="head-2">
@@ -80,8 +84,9 @@
         <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
         </a>
-        <form class="d-none d-md-flex ms-4">
-            <input class="form-control bg-dark border-0" type="search" placeholder="Search">
+        <form action="/dashboard/search" method="get">
+            <input type="search" name="keySearch" placeholder="Search">
+            <button type="submit">Tìm kiếm</button>
         </form>
         <div class="navbar-nav align-items-center ms-auto">
             <div class="nav-item dropdown">
