@@ -39,7 +39,7 @@
                 <th>Phone</th>
                 <th>Address</th>
                 <th>Balance</th>
-                <th colspan="4">Action</th>
+                <th colspan="5">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@
                     <td th:text="${item.address}"></td>
                     <td th:text="${item.balance}" class="text-end num-space"></td>
                     <td>
-                        <a href="#">
+                        <a th:href="@{/customers/edit/__${item.id}__}">
                             <button class="btn btn-outline-secondary">
                                 <i class="fas fa-pencil-alt"></i>
                             </button>
@@ -79,6 +79,13 @@
                             </button>
                         </a>
                     </td>
+                    <td>
+                        <a th:href="@{/customers/transfer/__${item.id}__}">
+                            <button class="btn btn-outline-success">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
+                        </a>
+                    </td>
                 </tr>
             </th:block>
             </tbody>
@@ -86,6 +93,21 @@
 
     </div>
 </div>
+
+<div th:if="${success}">
+    <script>
+        window.onload = function () {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Cập nhật thông tin khách hàng thành công',
+                showConfirmButton: false,
+                timer: 111500
+            })
+        }
+    </script>
+</div>
+
 <th:block th:replace="layout/script"/>
 </body>
 </html>

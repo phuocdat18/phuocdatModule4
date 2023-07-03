@@ -14,4 +14,6 @@ public interface IGeneralService<E, T> {
     void delete(E e);
 
     void deleteById(T id);
+
+    
 }

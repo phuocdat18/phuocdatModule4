@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ICustomerService extends IGeneralService<Customer, Long> {
 
+    List<Customer> findRecipients(Long id);
 }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deposit</title>
+    <link rel="stylesheet" href="/assets/bootstrap-5.0.2-dist/v5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fontawesome/v5.14/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="col-lg-6">
+            <h1>Edit of customer</h1>
+        </div>
+        <div class="col-lg-6  header-right-button">
+            <a href="/customers">
+                <button class="btn btn-outline-light">
+                    <i class="fas fa-bars"></i>
+                    List of customers
+                </button>
+            </a>
+        </div>
+    </header>
+    <div class="content">
+        <form th:object="${customer}" method="post">
+            <div class="row mt-3">
+                <div class="col-lg-6">
+                    <label for="name">Full name</label>
+                    <input type="text" class="form-control" id="name" th:field="*{fullName}">
+                </div>
+                <div class="col-lg-6">
+                    <label>Email</label>
+                    <input type="email" class="form-control" th:field="*{email}">
+                </div>
+                <div hidden="true" class="col-lg-6">
+                    <label for="balance">Full name</label>
+                    <input type="number" class="form-control" id="balance" th:field="*{balance}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-6">
+                    <label for="phone">address</label>
+                    <input type="tel" class="form-control" id="phone" th:field="*{phone}">
+                </div>
+                <div class="col-lg-6">
+                    <label for="address">address</label>
+                    <input type="text" class="form-control" id="address" th:field="*{address}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                        Edit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div th:if="${success}">
+    <script>
+        window.onload = function () {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Cập nhật thông tin khách hàng thành công',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+    </script>
+</div>
+
+<th:block th:replace="layout/script"/>
+</body>
+</html>

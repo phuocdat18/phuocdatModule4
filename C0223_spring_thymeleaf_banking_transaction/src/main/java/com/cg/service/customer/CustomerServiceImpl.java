@@ -19,11 +19,16 @@ public class CustomerServiceImpl implements ICustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+
     @Override
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
 
+    @Override
+    public List<Customer> findRecipients(Long id) {
+        return customerRepository.findRecipients(id);
+    }
     @Override
     public Optional<Customer> findById(Long id) {
         return customerRepository.findById(id);

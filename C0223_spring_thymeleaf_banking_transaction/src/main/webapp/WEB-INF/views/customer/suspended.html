@@ -11,7 +11,7 @@
 <div class="container">
     <header>
         <div class="col-lg-6">
-            <h1>Withdraw money</h1>
+            <h1>Suspended</h1>
         </div>
         <div class="col-lg-6  header-right-button">
             <a href="/customers">
@@ -30,6 +30,11 @@
                     <label for="fullName" class="form-label">Full Name</label>
                     <input type="text" class="form-control" id="fullName" name="name"
                            th:value="*{fullName}" th:field="*{fullName}" readonly>
+                </div>
+                <div hidden="true" class="col-md-6 mb-3">
+                    <label for="balance" class="form-label">Balance</label>
+                    <input type="text" class="form-control" id="balance" name="balance"
+                           th:value="*{balance}" th:field="*{balance}" readonly>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="email" class="form-label">Email</label>
