@@ -38,7 +38,7 @@ public class CustomerController {
 
     @GetMapping
     public String showListPage(Model model) {
-        List<Customer> customers = customerService.findAll();
+        List<Customer> customers = customerService.findAllByDeletedIsFalse();
 
         model.addAttribute("customers", customers);
 
@@ -129,7 +129,7 @@ public class CustomerController {
     public ModelAndView showTransfer(@PathVariable Long customerId) {
         ModelAndView modelAndView = new ModelAndView("/customer/transfer");
         Customer sender = customerService.findById(customerId).get();
-        List<Customer> recipients = customerService.findRecipients(customerId);
+        List<Customer> recipients = customerService.findAllByIdNot(customerId);
         modelAndView.addObject("sender", sender);
         modelAndView.addObject("recipients", recipients);
         return modelAndView;
@@ -278,7 +278,7 @@ public class CustomerController {
                 }
             }
         }
-        List<Customer> recipients = customerService.findRecipients(customerId);
+        List<Customer> recipients = customerService.findAllByIdNot(customerId);
         modelAndView.addObject("sender", customerSender);
         modelAndView.addObject("recipients", recipients);
         modelAndView.addObject("messages", messages);

@@ -101,6 +101,7 @@ public class AppConfig implements WebMvcConfigurer,  ApplicationContextAware {
         return dataSource;
     }
 
+
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -123,6 +124,5 @@ public class AppConfig implements WebMvcConfigurer,  ApplicationContextAware {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
     }
-
 
 }

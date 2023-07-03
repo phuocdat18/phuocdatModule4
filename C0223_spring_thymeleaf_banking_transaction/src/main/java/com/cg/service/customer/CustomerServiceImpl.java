@@ -25,10 +25,7 @@ public class CustomerServiceImpl implements ICustomerService {
         return customerRepository.findAll();
     }
 
-    @Override
-    public List<Customer> findRecipients(Long id) {
-        return customerRepository.findRecipients(id);
-    }
+
     @Override
     public Optional<Customer> findById(Long id) {
         return customerRepository.findById(id);
@@ -47,5 +44,15 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public void deleteById(Long id) {
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Customer> findAllByDeletedIsFalse() {
+        return customerRepository.findAllByDeletedIsFalse();
+    }
+
+    @Override
+    public List<Customer> findAllByIdNot(Long id) {
+        return customerRepository.findAllByIdNot(id);
     }
 }
