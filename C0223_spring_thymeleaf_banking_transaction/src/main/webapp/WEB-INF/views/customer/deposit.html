@@ -11,7 +11,7 @@
 <div class="container">
     <header>
         <div class="col-lg-6">
-            <h1>Create of customer</h1>
+            <h1>Deposit money</h1>
         </div>
         <div class="col-lg-6  header-right-button">
             <a href="/customers">
@@ -54,6 +54,28 @@
             </div>
         </form>
     </div>
+</div>
+
+<div th:if="${message == 'success'}" class="row d-flex justify-content-center">
+    <script th:inline="javascript">
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Successfully Deposit!',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+</div>
+
+<div th:if="${message == 'fail'}" class="row d-flex justify-content-center">
+    <script th:inline="javascript">
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Fail to deposit!'
+        })
+    </script>
 </div>
 
 <th:block th:replace="layout/script" />

@@ -28,6 +28,8 @@
                 <div class="col-lg-6">
                     <label class="fw-bolder">Full name</label>
                     <input type="text" class="form-control" name="fullName">
+                    <p th:if="${errorsMap.containsKey('nameInvalid')}" class="alert-danger"
+                       th:text="${errorsMap.get('nameInvalid')}"></p>
                 </div>
                 <div class="col-lg-6">
                     <label class="fw-bolder">Email</label>
@@ -53,9 +55,24 @@
                 </div>
             </div>
         </form>
-
-
     </div>
 </div>
+
+<footer class="alert alert-danger">
+    <div class="container">
+        <div class="error-area">
+            <th:block th:if="${hasError} == true">
+                <ul>
+                    <li th:each="err : ${#fields.errors('customer.*')}" th:text="${err}"></li>
+                </ul>
+            </th:block>
+            <th:block th:if="${notValid} == true">
+                <ul>
+                    <li th:text="${message}"></li>
+                </ul>
+            </th:block>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

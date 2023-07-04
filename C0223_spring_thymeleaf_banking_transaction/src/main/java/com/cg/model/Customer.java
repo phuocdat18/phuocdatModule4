@@ -1,12 +1,15 @@
 package com.cg.model;
 
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "customers")
-public class Customer extends BasseEntity {
+public class Customer extends BasseEntity implements Validator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,5 +86,27 @@ public class Customer extends BasseEntity {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        Customer customer = (Customer) target;
+
+        String fullName = customer.fullName;
+
+        if (fullName.length() == 0) {
+            errors.rejectValue("fullName", "fullName.empty" );
+        }
+        else {
+            if (fullName.length() < 5 || fullName.length() > 20) {
+                errors.rejectValue("fullName", "fullName.length");
+            }
+        }
+
     }
 }

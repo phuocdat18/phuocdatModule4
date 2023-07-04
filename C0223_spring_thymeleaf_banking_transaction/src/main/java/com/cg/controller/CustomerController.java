@@ -9,19 +9,17 @@ import com.cg.service.depossit.IDepositService;
 //import com.cg.service.transfer.ITransferService;
 import com.cg.service.transfer.ITransferService;
 import com.cg.service.withdraw.IWithdrawService;
+import com.cg.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/customers")
@@ -59,7 +57,13 @@ public class CustomerController {
 
 
     @GetMapping("/create")
-    public String showCreatePage() {
+    public String showCreatePage(Model model) {
+        Customer customer = new Customer();
+        Map<String,String> errorsMap = new HashMap<>();
+
+        model.addAttribute("customer",customer);
+        model.addAttribute("errorsMap",errorsMap);
+
         return "customer/create";
     }
 
@@ -121,7 +125,7 @@ public class CustomerController {
             return "customer/edit";
         }
         catch (Exception e) {
-            return "error404";
+            return "error/404";
         }
     }
 
@@ -137,34 +141,71 @@ public class CustomerController {
 
 
     @PostMapping("/create")
-    public String doCreate(@ModelAttribute Customer customer) {
+    public String doCreate(Model model, @ModelAttribute Customer customer, BindingResult bindingResult) {
+        new Customer().validate(customer, bindingResult);
+
+        if (bindingResult.hasFieldErrors()) {
+            model.addAttribute("hasError", true);
+            return "customer/create";
+        }
+
+        String email = customer.getEmail();
+        Boolean existsEmail = customerService.existsByEmail(email);
+
+        if (existsEmail) {
+            model.addAttribute("notValid", true);
+            model.addAttribute("message", "Email đã tồn tại");
+            return "customer/create";
+        }
+
         customer.setId(null);
         customer.setBalance(BigDecimal.ZERO);
         customerService.save(customer);
         return "customer/create";
     }
 
+    private static void validateInfo(Customer customer, Map<String, String> errorsMap) {
+        if (!AppUtils.isNameValid(customer.getFullName())){
+            errorsMap.put("nameInvalid","Tên không hợp lệ");
+        }
+        if (!AppUtils.isEmailValid(customer.getEmail())){
+            errorsMap.put("emailInvalid","Email không hợp lệ");
+        }
+        if (!AppUtils.isAddressValid(customer.getAddress())){
+            errorsMap.put("addressInvalid","Địa chỉ không hợp lệ");
+        }
+    }
+
     @PostMapping("/deposit/{customerId}")
     public String doDeposit(@ModelAttribute Deposit deposit, @PathVariable Long customerId, Model model) {
-
         Optional<Customer> customerOptional = customerService.findById(customerId);
+
         if (!customerOptional.isPresent()) {
             model.addAttribute("error", true);
-            model.addAttribute("message", "Id khách hàng không tồn tại");
-        } else {
+            model.addAttribute("message", "ID khách hàng không tồn tại");
+        }
+        else {
+            try {
+                Customer customer = customerService.deposit(deposit);
+                deposit.setCustomer(customer);
 
-            Customer customer = customerOptional.get();
-            deposit.setId(null);
-            depositService.save(deposit);
+                model.addAttribute("deposit", deposit);
+            }
+            catch (Exception ex) {
+                return "error/500";
+            }
 
-            BigDecimal currentBalance = customer.getBalance();
-            BigDecimal newBalance = currentBalance.add(deposit.getTransactionAmount());
-            customer.setBalance(newBalance);
-            customerService.save(customer);
+//            Customer customer = customerOptional.get();
 
-            deposit.setCustomer(customer);
-
-            model.addAttribute("deposit", deposit);
+//            deposit.setId(null);
+//            depositService.save(deposit);
+//
+//            BigDecimal currentBalance = customer.getBalance();
+//            BigDecimal newBalance = currentBalance.add(deposit.getTransactionAmount());
+//            customer.setBalance(newBalance);
+//
+//            BigDecimal transactionAmount = deposit.getTransactionAmount();
+//            customerService.incrementBalance(customerId, transactionAmount);
         }
 
         return "customer/deposit";
@@ -200,19 +241,6 @@ public class CustomerController {
 
         return "customer/withdraw";
     }
-
-//    @PostMapping("/suspended/{customerId}")
-//    public ModelAndView suspendCustomer(@PathVariable Long customerId, @ModelAttribute Customer currentCustomer) {
-//        List<String> messages = new ArrayList<>();
-//        ModelAndView modelAndView = new ModelAndView("/customer/list");
-//        currentCustomer.setDeleted(true);
-//        customerService.save(currentCustomer);
-//        messages.add("Customer suspend successfully");
-//        modelAndView.addObject("currentCustomer", new Customer());
-//        modelAndView.addObject("messages", messages);
-//        return modelAndView;
-//    }
-
 
     @PostMapping("/suspended/{customerId}")
     public String suspendCustomer(@PathVariable Long customerId, RedirectAttributes redirectAttributes) {
