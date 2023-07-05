@@ -1,13 +1,16 @@
 package com.cg.model;
 
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "transfers")
-public class Transfer {
+public class Transfer implements Validator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -150,5 +153,24 @@ public class Transfer {
 
     public void setSender_id(Long sender_id) {
         this.sender_id = sender_id;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return Deposit.class.isAssignableFrom(clazz);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        Transfer transfer = (Transfer) target;
+
+        BigDecimal transactionAmount = transfer.getTransaction_amount();
+        BigDecimal maxTransactionAmount = BigDecimal.valueOf(0L);
+
+        if (transactionAmount == null) {
+            errors.rejectValue("transaction_amount", "transactionAmountTransfer.null");
+        }  else if (transactionAmount.compareTo(maxTransactionAmount) < 0) {
+            errors.rejectValue("transaction_amount", "transactionAmountTransfer.min");
+        }
     }
 }

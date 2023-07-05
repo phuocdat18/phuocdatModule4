@@ -26,6 +26,7 @@ public class Customer extends BasseEntity implements Validator {
     private String address;
 
     @Column(precision = 10, scale = 0, nullable = false)
+//    , updatable = false
     private BigDecimal balance;
 
     public Customer() {
@@ -90,23 +91,49 @@ public class Customer extends BasseEntity implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return false;
+        return Customer.class.isAssignableFrom(aClass);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
         Customer customer = (Customer) target;
 
-        String fullName = customer.fullName;
+        String fullname = customer.fullName;
 
         if (fullName.length() == 0) {
             errors.rejectValue("fullName", "fullName.empty" );
         }
         else {
-            if (fullName.length() < 5 || fullName.length() > 20) {
-                errors.rejectValue("fullName", "fullName.length");
+            if (!fullName.matches("^[a-zA-Z\\s]{7,30}$")) {
+                errors.rejectValue("fullName", "fullName.matches");
             }
         }
 
+        String email = customer.email;
+        if (email.length() == 0) {
+            errors.rejectValue("email","email.empty");
+        }
+        else {
+            if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+                errors.rejectValue("email", "email.matches");
+            }
+        }
+
+        String address = customer.address;
+
+        if (address.length() == 0) {
+            errors.rejectValue("address", "address.empty" );
+        }
+
+        String phone = customer.phone;
+
+        if (phone.length() == 0) {
+            errors.rejectValue("phone", "phone.empty" );
+        }
+        else {
+            if (!phone.matches("^\\+\\d{1,2}\\s\\(\\d{3}\\)\\s\\d{3}-\\d{4}$")) {
+                errors.rejectValue("phone", "phone.matches");
+            }
+        }
     }
 }

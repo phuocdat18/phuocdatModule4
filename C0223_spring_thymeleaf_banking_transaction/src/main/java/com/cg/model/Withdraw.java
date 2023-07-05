@@ -1,11 +1,14 @@
 package com.cg.model;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "withdraws")
-public class Withdraw extends BasseEntity {
+public class Withdraw extends BasseEntity implements Validator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,5 +53,32 @@ public class Withdraw extends BasseEntity {
 
     public void setTransactionAmount(BigDecimal transactionAmount) {
         this.transactionAmount = transactionAmount;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return Deposit.class.isAssignableFrom(clazz);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        Withdraw withdraw = (Withdraw) target;
+
+        BigDecimal transactionAmount = withdraw.getTransactionAmount();
+        BigDecimal maxTransactionAmount = BigDecimal.valueOf(0L);
+        BigDecimal currentBalance = withdraw.getCustomer().getBalance();
+
+        if (transactionAmount == null) {
+            errors.rejectValue("transactionAmount", "transactionAmountWithdraw.null");
+        } else {
+            BigDecimal updateBalance = withdraw.getCustomer().getBalance().add(transactionAmount);
+
+            if (transactionAmount.compareTo(currentBalance) > 0) {
+                errors.rejectValue("transactionAmount", "transactionAmountWithdraw.insufficient");
+            }
+            if (transactionAmount.compareTo(maxTransactionAmount) < 0) {
+                errors.rejectValue("transactionAmount", "transactionAmountWithdraw.min");
+            }
+        }
     }
 }

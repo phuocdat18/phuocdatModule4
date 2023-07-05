@@ -14,6 +14,8 @@ public interface ICustomerService extends IGeneralService<Customer, Long> {
 
     Boolean existsByEmail(String email);
 
+    Boolean existsByPhone(String phone);
+
     Customer deposit(Deposit deposit);
 
     void incrementBalance(Long id, BigDecimal amount);

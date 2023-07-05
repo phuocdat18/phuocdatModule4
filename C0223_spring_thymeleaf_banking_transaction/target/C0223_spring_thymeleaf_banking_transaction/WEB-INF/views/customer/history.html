@@ -37,7 +37,7 @@
             <tbody>
             <th:block th:each="customer : ${deposit}">
                 <tr>
-                    <td th:text="${}" class="text-center"></td>
+                    <td th:text="${customer.id}" class="text-center"></td>
                     <td th:text="${customer.fullName}"></td>
                     <td th:text="${customer.customerId}" class="text-center"></td>
                     <td th:text="${customer.updateAt}" class="text-center"></td>

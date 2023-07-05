@@ -20,6 +20,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Boolean existsByEmail(String email);
 
+    Boolean existsByPhone (String phone);
+
     @Modifying
     @Query("UPDATE Customer AS cus SET cus.balance = cus.balance + :amount WHERE cus.id = :id")
     void incrementBalance(@Param("id") Long id, @Param("amount") BigDecimal amount);

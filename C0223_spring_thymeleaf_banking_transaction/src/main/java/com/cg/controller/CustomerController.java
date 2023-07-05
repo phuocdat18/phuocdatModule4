@@ -6,10 +6,8 @@ import com.cg.model.Transfer;
 import com.cg.model.Withdraw;
 import com.cg.service.customer.ICustomerService;
 import com.cg.service.depossit.IDepositService;
-//import com.cg.service.transfer.ITransferService;
 import com.cg.service.transfer.ITransferService;
 import com.cg.service.withdraw.IWithdrawService;
-import com.cg.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,12 +56,7 @@ public class CustomerController {
 
     @GetMapping("/create")
     public String showCreatePage(Model model) {
-        Customer customer = new Customer();
-        Map<String,String> errorsMap = new HashMap<>();
-
-        model.addAttribute("customer",customer);
-        model.addAttribute("errorsMap",errorsMap);
-
+//        model.addAttribute("customer", new Customer());
         return "customer/create";
     }
 
@@ -141,16 +134,19 @@ public class CustomerController {
 
 
     @PostMapping("/create")
-    public String doCreate(Model model, @ModelAttribute Customer customer, BindingResult bindingResult) {
+    public String doCreate(Model model, @ModelAttribute Customer customer, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         new Customer().validate(customer, bindingResult);
 
-        if (bindingResult.hasFieldErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("hasError", true);
             return "customer/create";
         }
 
         String email = customer.getEmail();
-        Boolean existsEmail = customerService.existsByEmail(email);
+        boolean existsEmail = customerService.existsByEmail(email);
+
+        String phone = customer.getPhone();
+        boolean existsPhone = customerService.existsByPhone(phone);
 
         if (existsEmail) {
             model.addAttribute("notValid", true);
@@ -158,26 +154,30 @@ public class CustomerController {
             return "customer/create";
         }
 
+        if (existsPhone) {
+            model.addAttribute("notValid", true);
+            model.addAttribute("message", "Phone đã tồn tại");
+            return "customer/create";
+        }
+
         customer.setId(null);
         customer.setBalance(BigDecimal.ZERO);
         customerService.save(customer);
-        return "customer/create";
+        redirectAttributes.addFlashAttribute("mess", "createMess");
+
+        return "redirect:/customers";
     }
 
-    private static void validateInfo(Customer customer, Map<String, String> errorsMap) {
-        if (!AppUtils.isNameValid(customer.getFullName())){
-            errorsMap.put("nameInvalid","Tên không hợp lệ");
-        }
-        if (!AppUtils.isEmailValid(customer.getEmail())){
-            errorsMap.put("emailInvalid","Email không hợp lệ");
-        }
-        if (!AppUtils.isAddressValid(customer.getAddress())){
-            errorsMap.put("addressInvalid","Địa chỉ không hợp lệ");
-        }
-    }
 
     @PostMapping("/deposit/{customerId}")
-    public String doDeposit(@ModelAttribute Deposit deposit, @PathVariable Long customerId, Model model) {
+    public String doDeposit(@ModelAttribute Deposit deposit, BindingResult bindingResult, @PathVariable Long customerId, Model model) {
+        new Deposit().validate(deposit, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("hasError", true);
+            return "customer/deposit";
+        }
+
         Optional<Customer> customerOptional = customerService.findById(customerId);
 
         if (!customerOptional.isPresent()) {
@@ -212,7 +212,13 @@ public class CustomerController {
     }
 
     @PostMapping("/withdraw/{customerId}")
-    public String doWithdraw(@ModelAttribute Withdraw withdraw, @PathVariable Long customerId, Model model) {
+    public String doWithdraw(@ModelAttribute Withdraw withdraw, BindingResult bindingResult, @PathVariable Long customerId, Model model) {
+        new Withdraw().validate(withdraw, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("hasError", true);
+            return "customer/withdraw";
+        }
 
         Optional<Customer> customerOptional = customerService.findById(customerId);
         if (!customerOptional.isPresent()) {
@@ -257,6 +263,8 @@ public class CustomerController {
             redirectAttributes.addFlashAttribute("message", "Không tìm thấy khách hàng");
         }
 
+        redirectAttributes.addFlashAttribute("mess", "suspendMess");
+
         return "redirect:/customers";
     }
 
@@ -270,8 +278,10 @@ public class CustomerController {
         List<Customer> customers = customerService.findAll();
 
         model.addAttribute("customers", customers);
-        redirectAttributes.addFlashAttribute("success", true);
-        redirectAttributes.addFlashAttribute("message", "Cập nhật thành công");
+//        redirectAttributes.addFlashAttribute("success", true);
+//        redirectAttributes.addFlashAttribute("message", "Cập nhật thành công");
+
+        redirectAttributes.addFlashAttribute("mess", "editMess");
 
         return "redirect:/customers";
     }

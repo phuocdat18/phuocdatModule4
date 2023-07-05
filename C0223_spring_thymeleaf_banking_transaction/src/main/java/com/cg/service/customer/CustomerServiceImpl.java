@@ -67,6 +67,11 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    public Boolean existsByPhone(String phone) {
+        return customerRepository.existsByPhone(phone);
+    }
+
+    @Override
     public Customer deposit(Deposit deposit) {
         deposit.setId(null);
         depositRepository.save(deposit);

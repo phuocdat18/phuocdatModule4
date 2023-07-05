@@ -37,17 +37,17 @@
             <div class="row mt-3">
                 <div class="col-lg-6">
                     <label class="fw-bolder">Current Balance ($)</label>
-                    <input type="text" class="form-control num-space" th:field="*{customer.balance}" readonly>
+                    <input type="text" class="form-control" th:field="*{customer.balance}" readonly>
                 </div>
                 <div class="col-lg-6">
                     <label class="fw-bolder">Transaction Amount ($)</label>
-                    <input type="text" class="form-control num-space" name="transactionAmount">
+                    <input type="text" class="form-control" name="transactionAmount">
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-3">
-                    <button type="submit" class="btn btn-outline-primary">
-                        <i class="fas fa-money-check-alt"></i>
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="fas fa-plus"></i>
                         Deposit
                     </button>
                 </div>
@@ -56,27 +56,17 @@
     </div>
 </div>
 
-<div th:if="${message == 'success'}" class="row d-flex justify-content-center">
-    <script th:inline="javascript">
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Successfully Deposit!',
-            showConfirmButton: false,
-            timer: 1500
-        })
-    </script>
-</div>
-
-<div th:if="${message == 'fail'}" class="row d-flex justify-content-center">
-    <script th:inline="javascript">
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Fail to deposit!'
-        })
-    </script>
-</div>
+<footer class="alert">
+    <div class="container">
+        <div class="error-area">
+            <th:block th:if="${hasError} == true">
+                <ul>
+                    <li class="alert alert-danger" th:each="err : ${#fields.errors('deposit.*')}" th:text="${err}"></li>
+                </ul>
+            </th:block>
+        </div>
+    </div>
+</footer>
 
 <th:block th:replace="layout/script" />
 </body>
