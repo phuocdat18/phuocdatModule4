@@ -98,7 +98,7 @@ public class Customer extends BasseEntity implements Validator {
     public void validate(Object target, Errors errors) {
         Customer customer = (Customer) target;
 
-        String fullname = customer.fullName;
+        String fullName = customer.fullName;
 
         if (fullName.length() == 0) {
             errors.rejectValue("fullName", "fullName.empty" );
