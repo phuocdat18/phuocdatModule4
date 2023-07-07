@@ -1,4 +1,4 @@
-package com.cg.repository;
+package cg.repository;
 
 import java.util.List;
 

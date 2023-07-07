@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List customer</title>
+    <link rel="stylesheet" href="./assets1/bootstrap-5.0.2-dist/v5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets1/fontawesome/v5.14/css/all.min.css">
+    <link rel="stylesheet" href="./assets1/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="./assets1/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="col-lg-6">
+                <h1>List of customer</h1>
+            </div>
+            <div class="col-lg-6  header-right-button">
+                <a href="#">
+                    <button class="btn btn-outline-light">
+                        <i class="fas fa-history"></i>
+                        Transfer histories
+                    </button>
+                </a>
+                <td>
+                    <button title="Create" type="button" class="btn btn-outline-light create" data-bs-toggle="modal"
+                        data-bs-target="#modalCreate">
+                        <i class="fas fa-user-plus"></i>
+                        Add New Customer
+                    </button>
+                </td>
+            </div>
+        </header>
+        <div class="content">
+            <table id="tbCustomer" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>FullName</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Balance</th>
+                        <th colspan="6">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+        <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fs-5" id="exampleModalLabel">Model Create</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col-lg-6">
+                                <label for="fullNameCre">Full Name</label>
+                                <input type="text" id="fullNameCre" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="emailCre">Email</label>
+                                <input type="email" id="emailCre" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-6">
+                                <label for="phoneCre">Phone</label>
+                                <input type="tel" id="phoneCre" class="form-control">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="addressCre">Address</label>
+                                <input type="text" id="addressCre" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnCreate">
+                            <i class="fas fa-plus"></i>
+                            Save changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Modal update</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Full Name</label>
+                                    <input type="text" class="form-control" id="fullNameUp">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Email</label>
+                                    <input type="email" class="form-control" id="emailUp">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Phone</label>
+                                    <input type="tel" class="form-control" id="phoneUp">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Address</label>
+                                    <input type="text" class="form-control" id="addressUp">
+                                </div>
+                                <div hidden class="col-lg-6">
+                                    <label class="fw-bold">Balance</label>
+                                    <input type="text" class="form-control" id="balanceUp">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate">
+                            <i class="fas fa-pencil-alt"></i>
+                            Save changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalDeposit" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+            data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal update customer</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Customer Id</label>
+                                    <input type="text" class="form-control" id="idDeposit" readonly>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Full Name</label>
+                                    <input type="text" class="form-control" id="fullNameDeposit" readonly>
+                                </div>
+                                <div hidden class="col-lg-6">
+                                    <label class="fw-bold">Customer Id</label>
+                                    <input type="text" class="form-control" id="emailDeposit" readonly>
+                                </div>
+                                <div hidden class="col-lg-6">
+                                    <label class="fw-bold">Customer Id</label>
+                                    <input type="text" class="form-control" id="addressDeposit" readonly>
+                                </div>
+                                <div hidden class="col-lg-6">
+                                    <label class="fw-bold">Customer Id</label>
+                                    <input type="text" class="form-control" id="phoneDeposit" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Balance ($)</label>
+                                    <input type="number" class="form-control" id="balanceDeposit" readonly>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">transaction Amount</label>
+                                    <input type="number" class="form-control" id="transactionAmountDeposit"
+                                        name="transactionAmount">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-3">
+                                    <button type="button" class="btn btn-outline-success" id="btnDeposit">
+                                        <i class="fas fa-plus"></i>
+                                        Deposit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="modalWithdraw" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+            data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Withdraw customer</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Customer Id</label>
+                                    <input type="text" class="form-control" id="idWithdraw" readonly>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Full Name</label>
+                                    <input type="text" class="form-control" id="fullNameWithdraw" readonly>
+                                </div>
+                                <div hidden class="col-lg-6">
+                                    <label class="fw-bold">Customer Id</label>
+                                    <input type="text" class="form-control" id="emailWithdraw" readonly>
+                                </div>
+                                <div hidden class="col-lg-6">
+                                    <label class="fw-bold">Customer Id</label>
+                                    <input type="text" class="form-control" id="addressWithdraw" readonly>
+                                </div>
+                                <div hidden class="col-lg-6">
+                                    <label class="fw-bold">Customer Id</label>
+                                    <input type="text" class="form-control" id="phoneWithdraw" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">Balance ($)</label>
+                                    <input type="number" class="form-control" id="balanceWithdraw" readonly>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="fw-bold">transaction Amount</label>
+                                    <input type="number" class="form-control" id="transactionAmountWithdraw"
+                                        name="transactionAmount">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-3">
+                                    <button type="button" class="btn btn-outline-warning" id="btnWithdraw">
+                                        <i class="fas fa-minus"></i>
+                                        Withdraw
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="mdTransfer" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+            data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal WithDraw</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" autocomplete="off">
+                            <div class="row mt-3">
+                                <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                                    <label for="senderID" class="form-label">Sender ID</label>
+                                    <input type="number" class="form-control" id="senderIdTf" readonly>
+                                </div>
+                                <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                                    <label for="senderName" class="form-label">Sender Name</label>
+                                    <input type="text" class="form-control" id="senderNameTf" readonly>
+                                </div>
+                                <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                                    <label for="email" class="form-label">Sender Email</label>
+                                    <input type="email" class="form-control" id="emailTf" readonly>
+                                </div>
+                                <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                                    <label for="balance" class="form-label">Sender Balance</label>
+                                    <input type="number" class="form-control" id="balanceTf" readonly>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                                    <label for="recipientSelect" class="form-label">Recipient</label>
+                                    <select class="form-select" name="recipient.id" id="recipientSelect">
+                                        <option value="" selected disabled>Select recipient</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                                    <label for="transfer" class="form-label">Transfer Amount (VND)</label>
+                                    <input type="number" class="form-control" id="transfer" name="transfer" value="0">
+                                </div>
+                                <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                                    <label for="fees" class="form-label">Fee (%)</label>
+                                    <input type="number" class="form-control" id="fees" name="fees" value="10" readonly>
+                                </div>
+                                <div class="mb-3 float-left col-lg-3 col-sm-12 col-md-6">
+                                    <label for="total" class="form-label">Total Amount (VND)</label>
+                                    <input type="number" class="form-control" id="total" value="0" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="btnTransfer" class="btn btn-outline-warning">
+                            <i class="fas fa-exchange-alt"></i>
+                            Transfer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.all.min.js">
+        </script>
+        <!-- <script src="./assets/jquery/jquery-3.6.4.min.js"></script> -->
+        <script type="text/javascript" src="./assets1/js/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="./assets1/js/popper-v1.16.0.min.js"></script>
+        <script type="text/javascript" src="./assets1/js/jquery.number.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- <script src="app.js"></script> -->
+        <!-- <script type="text/javascript" src="./assets1/js/app.js"></script> -->
+
+
+        <script src="index.js"></script>
+</body>
+
+</html>

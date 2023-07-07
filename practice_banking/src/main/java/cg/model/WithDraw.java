@@ -1,4 +1,4 @@
-package com.cg.model;
+package cg.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

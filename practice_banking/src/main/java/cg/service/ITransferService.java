@@ -1,6 +1,6 @@
-package com.cg.service;
+package cg.service;
 
-import com.cg.model.Transfer;
+import cg.model.Transfer;
 
 public interface ITransferService extends IGenaralService<Transfer>{
 }

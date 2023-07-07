@@ -1,9 +1,9 @@
-package com.cg.config;
+package cg.config;
 
-import com.cg.repository.CustomerRepository;
-import com.cg.repository.ICustomerRepository;
-import com.cg.service.CustomerService;
-import com.cg.service.ICustomerService;
+import cg.repository.CustomerRepository;
+import cg.repository.ICustomerRepository;
+import cg.service.CustomerService;
+import cg.service.ICustomerService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -37,8 +37,8 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@EnableJpaRepositories("com.cg.repository")
-@ComponentScan("com.cg")
+@EnableJpaRepositories("cg.repository")
+@ComponentScan("cg")
 public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -100,7 +100,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/m4_banking_transaction");
         dataSource.setUsername("root");
-        dataSource.setPassword("Anhvanmo.123");
+        dataSource.setPassword("123456");
         return dataSource;
     }
 

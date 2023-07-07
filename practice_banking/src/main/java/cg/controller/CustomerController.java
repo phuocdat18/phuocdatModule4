@@ -1,9 +1,9 @@
-package com.cg.controller;
+package cg.controller;
 
-import com.cg.model.Transfer;
-import com.cg.service.ICustomerService;
-import com.cg.model.Customer;
-import com.cg.service.ITransferService;
+import cg.model.Transfer;
+import cg.service.ICustomerService;
+import cg.model.Customer;
+import cg.service.ITransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

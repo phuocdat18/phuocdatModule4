@@ -1,4 +1,4 @@
-package com.cg.config;
+package cg.config;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import org.springframework.web.filter.CharacterEncodingFilter;

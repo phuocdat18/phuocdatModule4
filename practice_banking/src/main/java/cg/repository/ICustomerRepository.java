@@ -1,6 +1,6 @@
-package com.cg.repository;
+package cg.repository;
 
-import com.cg.model.Customer;
+import cg.model.Customer;
 
 public interface ICustomerRepository extends IGenaralRepository<Customer> {
 }

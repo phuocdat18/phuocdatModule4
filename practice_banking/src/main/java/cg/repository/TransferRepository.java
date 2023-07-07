@@ -1,6 +1,6 @@
-package com.cg.repository;
+package cg.repository;
 
-import com.cg.model.Transfer;
+import cg.model.Transfer;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

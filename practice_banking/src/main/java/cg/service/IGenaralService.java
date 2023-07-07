@@ -1,4 +1,4 @@
-package com.cg.service;
+package cg.service;
 
 import java.util.List;
 

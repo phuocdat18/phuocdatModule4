@@ -1,8 +1,8 @@
-package com.cg.service;
+package cg.service;
 
-import com.cg.model.Transfer;
-import com.cg.repository.ICustomerRepository;
-import com.cg.repository.ITransferRepository;
+import cg.model.Transfer;
+import cg.repository.ICustomerRepository;
+import cg.repository.ITransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

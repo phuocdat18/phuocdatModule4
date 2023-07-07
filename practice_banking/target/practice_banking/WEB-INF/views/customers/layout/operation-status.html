@@ -1,0 +1,17 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="operation-status">
+
+<th:block th:if="${messages}">
+    <div class="fixed-bottom alert alert-success alert-dismissible" th:hidden="${messages.isEmpty()}">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong th:each="message : ${messages}" th:text="${message}"></strong>
+    </div>
+</th:block>
+<th:block th:if="${errors}">
+    <div class="fixed-bottom alert alert-danger alert-dismissible" th:hidden="${errors.isEmpty()}">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong th:each="error : ${errors}" th:text="${error}"></strong>
+    </div>
+</th:block>
+
+</html>

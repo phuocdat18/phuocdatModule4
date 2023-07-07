@@ -1,7 +1,7 @@
-package com.cg.service;
+package cg.service;
 
-import com.cg.model.Customer;
-import com.cg.repository.ICustomerRepository;
+import cg.model.Customer;
+import cg.repository.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

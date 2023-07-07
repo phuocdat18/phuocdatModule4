@@ -1,6 +1,6 @@
-package com.cg.repository;
+package cg.repository;
 
-import com.cg.model.Customer;
+import cg.model.Customer;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

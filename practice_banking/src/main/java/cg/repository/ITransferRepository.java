@@ -1,6 +1,6 @@
-package com.cg.repository;
+package cg.repository;
 
-import com.cg.model.Transfer;
+import cg.model.Transfer;
 
 public interface ITransferRepository extends IGenaralRepository<Transfer> {
 

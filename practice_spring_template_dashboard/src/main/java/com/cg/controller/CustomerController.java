@@ -211,5 +211,4 @@ public class CustomerController {
         modelAndView.addObject("errors", errors);
         return modelAndView;
     }
-
 }
