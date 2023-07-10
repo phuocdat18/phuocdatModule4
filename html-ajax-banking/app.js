@@ -66,6 +66,16 @@ class Withdraw {
     }
 }
 
+class Transfer {
+    constructor(id, senderId, recipientId, transferAmount, transactionAmount, feeAmount){
+        this.id = id;
+        this.senderId = senderId,
+        this.recipientId = recipientId,
+        this.transferAmount = transferAmount,
+        this.transactionAmount = transactionAmount,
+        this.feeAmount = feeAmount
+    }
+  }
 // $(function() {
 //     $(".num-space").number(true, 0, ',', ' ');
 //     $(".num-point").number(true, 0, ',', '.');

@@ -99,7 +99,7 @@ page.commands.renderCustomer = (obj) => {
     `;
 }
 
-function addAllEvent(){
+function addAllEvent() {
     page.commands.handleAddEventShowModalUpdate
     page.commands.handleAddEventShowModalDeposit
     page.commands.handleAddEventShowModalWithdraw
@@ -112,15 +112,15 @@ function addAllEvent(){
 page.commands.getAllCustomers = () => {
     page.elements.tbCustomerBody.empty();
     $.ajax({
-        type: 'GET',
-        url: page.url.getAllCustomers
-    })
+            type: 'GET',
+            url: page.url.getAllCustomers
+        })
         .done((data) => {
             data.forEach(item => {
                 const str = page.commands.renderCustomer(item);
                 page.elements.tbCustomerBody.prepend(str);
-                
-            });     
+
+            });
             addAllEvent();
         })
         .fail((error) => {
@@ -131,6 +131,15 @@ page.commands.getAllCustomers = () => {
 
     let updateDiv = $("#update-result");
     updateDiv.innerHTML = "";
+
+    let depositDiv = $("#deposit-result");
+    depositDiv.innerHTML = "";
+
+    let withdrawDiv = $("#withdraw-result");
+    withdrawDiv.innerHTML = "";
+
+    let transferDiv = $("#transfer-result");
+    transferDiv.innerHTML = "";
 }
 
 page.commands.getCustomerById = (id) => {
@@ -155,7 +164,7 @@ function findCustomerIndexById(id) {
 
 
 page.commands.handleAddEventShowModalUpdate = (customerId) => {
-        page.commands.getCustomerById(customerId).then((data) => {
+    page.commands.getCustomerById(customerId).then((data) => {
             page.dialogs.elements.fullNameUp.val(data.fullName);
             page.dialogs.elements.emailUp.val(data.email);
             page.dialogs.elements.phoneUp.val(data.phone);
@@ -163,14 +172,14 @@ page.commands.handleAddEventShowModalUpdate = (customerId) => {
 
             page.dialogs.elements.modalUpdate.modal('show');
         })
-            .catch((error) => {
-                console.log(error);
-            });
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 
 page.commands.handleAddEventShowModalDeposit = (customerId) => {
-        page.commands.getCustomerById(customerId).then((data) => {
+    page.commands.getCustomerById(customerId).then((data) => {
             customer = data;
             page.dialogs.elements.idDeposit.val(customer.id);
             page.dialogs.elements.fullNameDeposit.val(customer.fullName);
@@ -179,100 +188,25 @@ page.commands.handleAddEventShowModalDeposit = (customerId) => {
 
             page.dialogs.elements.modalDeposit.modal('show');
         })
-            .catch((error) => {
-                console.log(error);
-            });
-}
-
-page.commands.handleAddEventShowModalWithdraw = (customerId) => {
-    page.commands.getCustomerById(customerId).then((data) => {
-        customer = data;
-        page.dialogs.elements.idWithdraw.val(customer.id);
-        page.dialogs.elements.fullNameWithdraw.val(customer.fullName);
-        page.dialogs.elements.emailWithdraw.val(customer.email);
-        page.dialogs.elements.balanceWithdraw.val(customer.balance);
-
-        page.dialogs.elements.modalWithdraw.modal('show');
-    })
         .catch((error) => {
             console.log(error);
         });
 }
 
-// page.dialogs.commands.create = () => {
-//     const fullName = page.dialogs.elements.fullNameCre.val();
-//     const email = page.dialogs.elements.emailCre.val();
-//     const phone = page.dialogs.elements.phoneCre.val();
-//     const address = page.dialogs.elements.addressCre.val();
-//     const balance = 0;
-//     const deleted = 0;
+page.commands.handleAddEventShowModalWithdraw = (customerId) => {
+    page.commands.getCustomerById(customerId).then((data) => {
+            customer = data;
+            page.dialogs.elements.idWithdraw.val(customer.id);
+            page.dialogs.elements.fullNameWithdraw.val(customer.fullName);
+            page.dialogs.elements.emailWithdraw.val(customer.email);
+            page.dialogs.elements.balanceWithdraw.val(customer.balance);
 
-//     let requires = [];
-//     if(fullName == "") requires.push("Tên không được để trống");
-//     if(email == "") requires.push("Email không được để trống");
-//     if(address == "") requires.push("Địa chỉ không được để trống");
-//     if(phone == "") requires.push("Phone không được để trống");
-
-//     let createDiv = $("#create-result");
-//     createDiv.empty();
-
-//     if(requires.length > 0){
-//         var resultStr = ""
-//         for(var i = 0; i < requires.length; i++){
-//             resultStr += `
-//             <p class="alert alert-danger">${requires[i]}</p>
-//             `;
-//         }
-//         createDiv.html(resultStr)
-//     } else{
-//         const obj = {
-//             fullName,
-//             email,
-//             phone,
-//             address,
-//             balance,
-//             deleted
-//         };
-
-//         $.ajax({
-//             headers: {
-//                 'accept': 'application/json',
-//                 'content-type': 'application/json'
-//             },
-//             type: 'POST',
-//             url: page.url.createCustomer,
-//             data: JSON.stringify(obj)
-//         })
-//             .done((data) => {
-//                 const str = page.commands.renderCustomer(data);
-//                 page.elements.tbCustomerBody.prepend(str);
-    
-//                 addAllEvent();
-//                 page.dialogs.elements.modalCreate.modal('hide');
-//                 Swal.fire({
-//                     position: 'top-end',
-//                     icon: 'success',
-//                     title: 'Thêm mới thành công',
-//                     showConfirmButton: false,
-//                     timer: 1500
-//                 })
-//             })
-//             .fail((error) => {
-//                 console.log(error);
-//             })
-//         }
-
-
-//     // const obj = {
-//     //     fullName,
-//     //     email,
-//     //     phone,
-//     //     address,
-//     //     balance,
-//     //     deleted
-//     // }
-    
-// }
+            page.dialogs.elements.modalWithdraw.modal('show');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
 
 page.dialogs.commands.create = () => {
     const fullName = page.dialogs.elements.fullNameCre.val();
@@ -283,23 +217,23 @@ page.dialogs.commands.create = () => {
     const deleted = 0;
 
     let requires = [];
-    if(fullName == "") requires.push("Tên không được để trống");
-    if(email == "") requires.push("Email không được để trống");
-    if(address == "") requires.push("Địa chỉ không được để trống");
-    if(phone == "") requires.push("Phone không được để trống");
+    if (fullName == "") requires.push("Tên không được để trống");
+    if (email == "") requires.push("Email không được để trống");
+    if (address == "") requires.push("Địa chỉ không được để trống");
+    if (phone == "") requires.push("Phone không được để trống");
 
     let createDiv = $("#create-result");
     createDiv.empty();
 
-    if(requires.length > 0){
+    if (requires.length > 0) {
         var resultStr = ""
-        for(var i = 0; i < requires.length; i++){
+        for (var i = 0; i < requires.length; i++) {
             resultStr += `
             <p class="alert alert-danger">${requires[i]}</p>
             `;
         }
         createDiv.html(resultStr)
-    } else{
+    } else {
         const obj = {
             fullName,
             email,
@@ -310,18 +244,18 @@ page.dialogs.commands.create = () => {
         };
 
         $.ajax({
-            headers: {
-                'accept': 'application/json',
-                'content-type': 'application/json'
-            },
-            type: 'POST',
-            url: page.url.createCustomer,
-            data: JSON.stringify(obj)
-        })
+                headers: {
+                    'accept': 'application/json',
+                    'content-type': 'application/json'
+                },
+                type: 'POST',
+                url: page.url.createCustomer,
+                data: JSON.stringify(obj)
+            })
             .done((data) => {
                 const str = page.commands.renderCustomer(data);
                 page.elements.tbCustomerBody.prepend(str);
-    
+
                 addAllEvent();
                 page.dialogs.elements.modalCreate.modal('hide');
                 Swal.fire({
@@ -335,19 +269,19 @@ page.dialogs.commands.create = () => {
             .fail((error) => {
                 console.log(error);
             })
-        } 
+    }
 }
 
 page.dialogs.commands.update = (obj) => {
     $.ajax({
-        headers: {
-            'accept': 'application/json',
-            'content-type': 'application/json'
-        },
-        type: 'PATCH',
-        url: page.url.updateCustomer + '/' + customerId,
-        data: JSON.stringify(obj)
-    })
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'PATCH',
+            url: page.url.updateCustomer + '/' + customerId,
+            data: JSON.stringify(obj)
+        })
         .done((data) => {
             const str = page.commands.renderCustomer(data);
 
@@ -361,16 +295,17 @@ page.dialogs.commands.update = (obj) => {
         })
 }
 
+
 page.dialogs.commands.deposit = (customer, deposit) => {
     $.ajax({
-        headers: {
-            'accept': 'application/json',
-            'content-type': 'application/json'
-        },
-        type: 'PATCH',
-        url: page.url.incrementBalance + '/' + customerId,
-        data: JSON.stringify(customer)
-    })
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'PATCH',
+            url: page.url.incrementBalance + '/' + customerId,
+            data: JSON.stringify(customer)
+        })
         .done((data) => {
             const str = page.commands.renderCustomer(data);
 
@@ -386,14 +321,14 @@ page.dialogs.commands.deposit = (customer, deposit) => {
         })
 
     $.ajax({
-        headers: {
-            'accept': 'application/json',
-            'content-type': 'application/json'
-        },
-        type: 'POST',
-        url: page.url.deposit,
-        data: JSON.stringify(deposit)
-    })
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'POST',
+            url: page.url.deposit,
+            data: JSON.stringify(deposit)
+        })
         .done((data) => {
 
         })
@@ -402,16 +337,22 @@ page.dialogs.commands.deposit = (customer, deposit) => {
         })
 }
 
+
+
+
+
+
+
 page.dialogs.commands.withdraw = (customer, withdraw) => {
     $.ajax({
-        headers: {
-            'accept': 'application/json',
-            'content-type': 'application/json'
-        },
-        type: 'PATCH',
-        url: page.url.incrementBalance + '/' + customerId,
-        data: JSON.stringify(customer)
-    })
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'PATCH',
+            url: page.url.incrementBalance + '/' + customerId,
+            data: JSON.stringify(customer)
+        })
         .done((data) => {
             const str = page.commands.renderCustomer(data);
 
@@ -427,14 +368,14 @@ page.dialogs.commands.withdraw = (customer, withdraw) => {
         })
 
     $.ajax({
-        headers: {
-            'accept': 'application/json',
-            'content-type': 'application/json'
-        },
-        type: 'POST',
-        url: page.url.withdraw,
-        data: JSON.stringify(withdraw)
-    })
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'POST',
+            url: page.url.withdraw,
+            data: JSON.stringify(withdraw)
+        })
         .done((data) => {
 
         })
@@ -497,104 +438,128 @@ function handleAddEventShowModalTransfer() {
 
 
 $('#btnTransfer').on('click', () => {
-    let recipientId = $('#recipientSelect').val();
+
     page.commands.getCustomerById(customerId).then((senderData) => {
+        const transferAmount = +$('#transfer').val();
         let sender = senderData;
-        let currentBalance = sender.balance;
-        let transactionAmount = +$('#total').val();
-        let newBalance = currentBalance - transactionAmount;
-        sender.balance = newBalance;
+        const currentBalance = sender.balance;
 
-        page.commands.getCustomerById(recipientId).then((recipientData) => {
-            let recipient = recipientData;
-            let transferAmount = +$('#transfer').val();
-            let currentBalanceRecipient = recipient.balance;
-            let newBalanceRecipient = currentBalanceRecipient + transferAmount;
-            recipient.balance = newBalanceRecipient;
 
-            let fees = +$('#fees').val();
-            let feesAmount = (fees * transferAmount) / 100;
+        let requires = [];
+        if (transferAmount == "") requires.push("Số tiền không được để trống");
+        if (transferAmount < 1) requires.push("Số tiền phải lớn hơn 0");
+        if (transferAmount > currentBalance) requires.push("Số tiền phải bé hơn số tiền trong tài khoản người gửi");
 
-            let transfer = {
-                senderId: sender.id,
-                recipientId: recipient.id,
-                fees: fees,
-                feesAmount: feesAmount,
-                transferAmount: transferAmount,
-                transactionAmount: transactionAmount
+        let transferDiv = $("#transfer-result");
+        transferDiv.empty();
+        if (requires.length > 0) {
+            var resultStr = ""
+            for (var i = 0; i < requires.length; i++) {
+                resultStr += `
+                <p class="alert alert-danger">${requires[i]}</p>
+                `;
             }
+            transferDiv.html(resultStr)
+        } else {
+            let recipientId = $('#recipientSelect').val();
+            let transactionAmount = +$('#total').val();
+            let newBalance = currentBalance - transactionAmount;
+            sender.balance = newBalance;
 
-            $.ajax({
-                type: 'PATCH',
-                headers: {
-                    'accept': 'application/json',
-                    'content-type': 'application/json'
-                },
-                url: 'http://localhost:3300/customers/' + recipient.id,
-                data: JSON.stringify(recipient),
-                success: (data) => {
-                    let str = page.commands.renderCustomer(data);
-                    $('#tr_' + recipient.id).replaceWith(str);
-                },
-                error: (error) => {
-                    console.log(error);
+            page.commands.getCustomerById(recipientId).then((recipientData) => {
+                let recipient = recipientData;
+                let transferAmount = +$('#transfer').val();
+                let currentBalanceRecipient = recipient.balance;
+                let newBalanceRecipient = currentBalanceRecipient + transferAmount;
+                recipient.balance = newBalanceRecipient;
+
+                let fees = +$('#fees').val();
+                let feesAmount = (fees * transferAmount) / 100;
+
+                let transfer = {
+                    senderId: sender.id,
+                    recipientId: recipient.id,
+                    fees: fees,
+                    feesAmount: feesAmount,
+                    transferAmount: transferAmount,
+                    transactionAmount: transactionAmount
                 }
+
+                $.ajax({
+                    type: 'PATCH',
+                    headers: {
+                        'accept': 'application/json',
+                        'content-type': 'application/json'
+                    },
+                    url: 'http://localhost:3300/customers/' + recipient.id,
+                    data: JSON.stringify(recipient),
+                    success: (data) => {
+                        let str = page.commands.renderCustomer(data);
+                        $('#tr_' + recipient.id).replaceWith(str);
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    }
+                });
+
+                $.ajax({
+                    type: 'PATCH',
+                    headers: {
+                        'accept': 'application/json',
+                        'content-type': 'application/json'
+                    },
+                    url: 'http://localhost:3300/customers/' + sender.id,
+                    data: JSON.stringify(sender),
+                    success: (data) => {
+                        let str = page.commands.renderCustomer(data);
+                        $('#tr_' + sender.id).replaceWith(str);
+
+                        // $('#transfer').val('');
+                        // $('#total').val('');
+
+                        page.dialogs.elements.frmTransfer[0].reset();
+                        $('#transfer-result').empty();
+                        $('#mdTransfer').modal('hide');
+
+                        addAllEvent();
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    headers: {
+                        'accept': 'application/json',
+                        'content-type': 'application/json'
+                    },
+                    url: 'http://localhost:3300/transfers',
+                    data: JSON.stringify(transfer),
+                    success: () => {
+                        // Handle success if needed
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    }
+                });
             });
-
-            $.ajax({
-                type: 'PATCH',
-                headers: {
-                    'accept': 'application/json',
-                    'content-type': 'application/json'
-                },
-                url: 'http://localhost:3300/customers/' + sender.id,
-                data: JSON.stringify(sender),
-                success: (data) => {
-                    let str = page.commands.renderCustomer(data);
-                    $('#tr_' + sender.id).replaceWith(str);
-
-                    $('#transfer').val('');
-                    $('#total').val('');
-                    $('#mdTransfer').modal('hide');
-
-                    addAllEvent();
-                },
-                error: (error) => {
-                    console.log(error);
-                }
-            });
-
-            $.ajax({
-                type: 'POST',
-                headers: {
-                    'accept': 'application/json',
-                    'content-type': 'application/json'
-                },
-                url: 'http://localhost:3300/transfers',
-                data: JSON.stringify(transfer),
-                success: () => {
-                    // Handle success if needed
-                },
-                error: (error) => {
-                    console.log(error);
-                }
-            });
-        });
+        }
     });
 });
 
 page.commands.handleAddEventModalDelete = (customerId) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085D6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085D6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
                     type: 'PATCH',
                     //tên API
                     url: page.url.updateCustomer + '/' + customerId,
@@ -603,18 +568,18 @@ page.commands.handleAddEventModalDelete = (customerId) => {
                         deleted: 1
                     }
                 })
-                    .done(() => {
-                        $('#tr_' + customerId).remove();
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Customer has been deleted',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                .done(() => {
+                    $('#tr_' + customerId).remove();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Customer has been deleted',
+                        showConfirmButton: false,
+                        timer: 1500
                     })
-            }
-        })
+                })
+        }
+    })
 }
 
 
@@ -631,9 +596,11 @@ page.initializeControlEvent = () => {
         customerId = $(this).data('id');
         page.commands.handleAddEventShowModalUpdate(customerId);
     })
+    
 
     page.dialogs.commands.closeModalCreate = () => {
         page.dialogs.elements.frmCreate[0].reset();
+        $('#create-result').empty();
     }
 
     page.dialogs.elements.modalCreate.on("hidden.bs.modal", function () {
@@ -642,17 +609,19 @@ page.initializeControlEvent = () => {
 
     page.dialogs.commands.closeModalDeposit = () => {
         page.dialogs.elements.frmDeposit[0].reset();
+        $('#deposit-result').empty();
     }
 
-    page.dialogs.elements.modalDeposit.on("hidden.bs.modal", function() {
+    page.dialogs.elements.modalDeposit.on("hidden.bs.modal", function () {
         page.dialogs.commands.closeModalDeposit();
     })
 
     page.dialogs.commands.closeModalWithdraw = () => {
         page.dialogs.elements.frmWithdraw[0].reset();
+        $('#withdraw-result').empty();
     }
 
-    page.dialogs.elements.modalWithdraw.on("hidden.bs.modal", function() {
+    page.dialogs.elements.modalWithdraw.on("hidden.bs.modal", function () {
         page.dialogs.commands.closeModalWithdraw();
     })
 
@@ -680,60 +649,97 @@ page.initializeControlEvent = () => {
         delete customer.id;
 
         let requires = [];
-        if(fullName == "") requires.push("Tên không được để trống");
-        if(email == "") requires.push("Email không được để trống");
-        if(address == "") requires.push("Địa chỉ không được để trống");
-        if(phone == "") requires.push("Phone không được để trống");
-    
+        if (fullName == "") requires.push("Tên không được để trống");
+        if (email == "") requires.push("Email không được để trống");
+        if (address == "") requires.push("Địa chỉ không được để trống");
+        if (phone == "") requires.push("Phone không được để trống");
+
         let updateDiv = $("#update-result");
         updateDiv.empty();
-    
-        if(requires.length > 0){
+
+        if (requires.length > 0) {
             var resultStr = ""
-            for(var i = 0; i < requires.length; i++){
+            for (var i = 0; i < requires.length; i++) {
                 resultStr += `
                 <p class="alert alert-danger">${requires[i]}</p>
                 `;
             }
             updateDiv.html(resultStr)
-        } else{
+        } else {
             customer.fullName = fullName;
             customer.email = email;
             customer.phone = phone;
             customer.address = address;
-    
+
             page.dialogs.commands.update(customer);
-            }        
+        }
     })
 
     page.dialogs.elements.btnDeposit.on('click', () => {
+        const transactionAmount = +page.dialogs.elements.transactionAmountDeposit.val();
 
-        const currentBalance = customer.balance;
-        const transactionAmount = +$('#transactionAmountDeposit').val();
-        const newBalance = currentBalance + transactionAmount;
-        customer.balance = newBalance;
+        let requires = [];
+        if (transactionAmount == "") requires.push("Số tiền không được để trống");
+        if (transactionAmount < 1) requires.push("Số tiền nạp phải lớn hơn 0");
 
-        deposit.id = null;
-        deposit.customerId = customerId;
-        deposit.transactionAmount = transactionAmount;
+        let depositDiv = $("#deposit-result");
+        depositDiv.empty();
 
-        page.dialogs.commands.deposit(customer, deposit);
+        if (requires.length > 0) {
+            var resultStr = ""
+            for (var i = 0; i < requires.length; i++) {
+                resultStr += `
+                <p class="alert alert-danger">${requires[i]}</p>
+                `;
+            }
+            depositDiv.html(resultStr)
+        } else {
+            const currentBalance = customer.balance;
+            const newBalance = currentBalance + transactionAmount;
+            customer.balance = newBalance;
 
-    })
+            const deposit = {
+                id: null,
+                customerId: customerId,
+                transactionAmount: transactionAmount
+            };
+
+            page.dialogs.commands.deposit(customer, deposit);
+        }
+    });
+
 
     page.dialogs.elements.btnWithdraw.on('click', () => {
-
+        const transactionAmount = +page.dialogs.elements.transactionAmountWithdraw.val();
         const currentBalance = customer.balance;
-        const transactionAmount = +$('#transactionAmountWithdraw').val();
-        const newBalance = currentBalance - transactionAmount;
-        customer.balance = newBalance;
 
-        withdraw.id = null;
-        withdraw.customerId = customerId;
-        withdraw.transactionAmount = transactionAmount;
+        let requires = [];
+        if (transactionAmount == "") requires.push("Số tiền không được để trống");
+        if (transactionAmount < 1) requires.push("Số tiền rút phải lớn hơn 0");
+        if (transactionAmount > currentBalance) requires.push("Số tiền rút phải bé hơn Số tiền có trong tài khoản");
 
-        page.dialogs.commands.withdraw(customer, withdraw);
+        let withdrawDiv = $("#withdraw-result");
+        withdrawDiv.empty();
 
+        if (requires.length > 0) {
+            var resultStr = ""
+            for (var i = 0; i < requires.length; i++) {
+                resultStr += `
+                <p class="alert alert-danger">${requires[i]}</p>
+                `;
+            }
+            withdrawDiv.html(resultStr)
+        } else {
+            const transactionAmount = +$('#transactionAmountWithdraw').val();
+            const newBalance = currentBalance - transactionAmount;
+            customer.balance = newBalance;
+
+            withdraw.id = null;
+            withdraw.customerId = customerId;
+            withdraw.transactionAmount = transactionAmount;
+
+            page.dialogs.commands.withdraw(customer, withdraw);
+        }
     })
 
 }
