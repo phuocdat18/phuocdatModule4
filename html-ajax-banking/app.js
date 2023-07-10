@@ -1,4 +1,14 @@
 class App {
+    static DOMAIN_SERVER = 'http://localhost:3300';
+    static API_SERVER = 'http://localhost:3300';
+
+    static API_CUSTOMER = this.API_SERVER + '/customers';
+    static API_DEPOSIT = this.API_SERVER + '/deposits';
+    static API_WITHDRAW = this.API_SERVER + '/withdraws';
+    static API_TRANSFER = this.API_SERVER + '/transfer';
+    
+
+
     static showDeleteConfirmDialog() {
         return Swal.fire({
             icon: 'warning',
@@ -40,10 +50,26 @@ class Customer {
     }
 }
 
-$(function() {
-    $(".num-space").number(true, 0, ',', ' ');
-    $(".num-point").number(true, 0, ',', '.');
-    $(".num-comma").number(true, 0, ',', ',');
+class Deposit {
+    constructor(id, customerId, transactionAmount) {
+      this.id = id;
+      this.customerId = customerId;
+      this.transactionAmount = transactionAmount;
+    }
+}
 
-    // $('[data-toggle="tooltip"]').tooltip();
-});
+class Withdraw {
+    constructor(id, customerId, transactionAmount) {
+      this.id = id;
+      this.customerId = customerId;
+      this.transactionAmount = transactionAmount;
+    }
+}
+
+// $(function() {
+//     $(".num-space").number(true, 0, ',', ' ');
+//     $(".num-point").number(true, 0, ',', '.');
+//     $(".num-comma").number(true, 0, ',', ',');
+
+//     $('[data-toggle="tooltip"]').tooltip();
+// });

@@ -42,75 +42,84 @@ function renderCustomer(obj) {
             `;
 }
 
-
+function addAllEvent(){
+    handleAddEventShowModalUpdate();
+    handleAddEventShowModalDeposit();
+    handleAddEventShowModalWithdraw();
+    handleAddEventModalDelete();
+    handleAddEventShowModalTransfer();
+    createCustomer();
+}
 
 function getAllCustomers() {
     const tbCustomerBody = $('#tbCustomer tbody')
-
     tbCustomerBody.empty();
-
     $.ajax({
-            type: 'GET',
-            url: 'http://localhost:3300/customers?deleted=0'
-        })
+        type: 'GET',
+        url: 'http://localhost:3300/customers?deleted=0'
+    })
         .done((data) => {
             data.forEach(item => {
                 const str = renderCustomer(item);
                 tbCustomerBody.prepend(str);
-            });
-
-            handleAddEventShowModalUpdate();
-            handleAddEventShowModalDeposit();
-            handleAddEventShowModalWithdraw();
-            handleAddEventModalDelete();
-            handleAddEventShowModalTransfer();
+                
+            });     
+            addAllEvent();
         })
         .fail((error) => {
             console.log(error);
         })
 }
-
 getAllCustomers();
 
 
-const btnCreate = $('#btnCreate');
-btnCreate.on('click', function () {
-    const fullName = $('#fullNameCre').val();
-    const email = $('#emailCre').val(); 
-    const phone = $('#phoneCre').val(); 
-    const address = $('#addressCre').val(); 
-    const balance = 0;
-    const deleted = 0;
 
-    const obj = {
-        fullName,
-        email,
-        phone,
-        address,
-        balance,
-        deleted
-    };
-
-    $.ajax({
-        headers: {
-            'Accept': 'application/json', 
-            'Content-Type': 'application/json' 
-        },
-        type: 'POST',
-        url: 'http://localhost:3300/customers',
-        data: JSON.stringify(obj)
+function createCustomer() {
+    const btnCreate = $('#btnCreate');
+    btnCreate.on('click', function () {
+        const fullName = $('#fullNameCre').val();
+        const email = $('#emailCre').val();
+        const phone = $('#phoneCre').val();
+        const address = $('#addressCre').val();
+        const balance = 0;
+        const deleted = 0;
+        const obj = {
+            fullName,
+            email,
+            phone,
+            address,
+            balance,
+            deleted
+        }
+        $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'POST',
+            url: 'http://localhost:3300/customers',
+            data: JSON.stringify(obj)
+        })
+            .done((data) => {
+                const str = renderCustomer(data);
+                const tbCustomerBody = $('#tbCustomer tbody');
+                tbCustomerBody.prepend(str);
+    
+                addAllEvent();
+                $('#modalCreate').modal('hide');
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Thêm mới thành công',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+            .fail((error) => {
+                console.log(error);
+            })
     })
-    .done((data) => {
-        const str = renderCustomer(data);
-        const tbCustomerBody = $('tbCustomer tbody');
-        tbCustomerBody.prepend(str);
-
-        $('#modalCreate').modal('hide');
-    })
-    .fail((error) => {
-        console.log(error);
-    });
-});
+}
 
 
 
@@ -145,13 +154,13 @@ function handleAddEventShowModalUpdate() {
         const modalUpdate = $('#modalUpdate');
 
         getCustomerById(customerId).then((data) => {
-                $('#fullNameUp').val(data.fullName);
-                $('#emailUp').val(data.email);
-                $('#phoneUp').val(data.phone);
-                $('#addressUp').val(data.address);
+            $('#fullNameUp').val(data.fullName);
+            $('#emailUp').val(data.email);
+            $('#phoneUp').val(data.phone);
+            $('#addressUp').val(data.address);
 
-                modalUpdate.modal('show');
-            })
+            modalUpdate.modal('show');
+        })
             .catch((error) => {
                 console.log(error);
             });
@@ -217,9 +226,7 @@ btnUpdate.on('click', () => {
         email,
         phone,
         address,
-        balance
     }
-
     update(obj);
 })
 
@@ -239,8 +246,9 @@ function update(obj) {
 
             const currentRow = $('#tr_' + customerId);
             currentRow.replaceWith(str);
-
             $('#modalUpdate').modal('hide');
+
+            addAllEvent();
         })
         .fail((error) => {
             console.log(error);
@@ -270,14 +278,9 @@ btnDeposit.on('click', () => {
 
             const currentRow = $('#tr_' + customerId);
             currentRow.replaceWith(str);
-
-            handleAddEventShowModalUpdate();
-            handleAddEventShowModalDeposit();
-            handleAddEventShowModalWithdraw();
-            handleAddEventModalDelete();
-            handleAddEventShowModalTransfer();
-
             $('#modalDeposit').modal('hide');
+
+            addAllEvent();
 
             Swal.fire({
                 position: 'top-end',
@@ -338,14 +341,9 @@ btnWithdraw.on('click', () => {
 
             const currentRow = $('#tr_' + customerId);
             currentRow.replaceWith(str);
-
-            handleAddEventShowModalUpdate();
-            handleAddEventShowModalDeposit();
-            handleAddEventShowModalWithdraw();
-            handleAddEventModalDelete();
-            handleAddEventShowModalTransfer();
-
             $('#modalWithdraw').modal('hide');
+
+            addAllEvent();
 
             Swal.fire({
                 position: 'top-end',
@@ -406,6 +404,13 @@ function getRecipients(customerId) {
         }
     });
 }
+
+document.addEventListener("input", () => {
+    let fee = Number(document.getElementById("fees").value);
+    let transferAmount = Number(document.getElementById("transfer").value);
+    let transactionFee = transferAmount * fee / 100;
+    document.getElementById("total").value = Math.round(transactionFee + transferAmount);
+})
 
 
 
@@ -499,11 +504,7 @@ $('#btnTransfer').on('click', () => {
                     $('#total').val('');
                     $('#mdTransfer').modal('hide');
         
-                    handleAddEventShowModalUpdate();
-                    handleAddEventShowModalDeposit();
-                    handleAddEventShowModalWithdraw();
-                    handleAddEventModalDelete();
-                    handleAddEventShowModalTransfer();
+                    addAllEvent();
         
                 })
 
@@ -519,6 +520,8 @@ $('#btnTransfer').on('click', () => {
         })
     })
 });
+
+
 
 
 
