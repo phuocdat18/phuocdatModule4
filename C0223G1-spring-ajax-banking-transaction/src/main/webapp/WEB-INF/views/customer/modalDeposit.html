@@ -1,0 +1,59 @@
+<th:block th:fragment="modalDeposit">
+    <div class="modal fade" id="modalDeposit" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <form method="post" id="frmDeposit">
+                    <span id="deposit-result"> </span>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal update customer</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="error-area hide"></div>
+                        <div class="row mb-3">
+                            <div class="col-lg-6">
+                                <label class="fw-bold">Customer Id</label>
+                                <input type="text" class="form-control" id="idDeposit" readonly>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="fw-bold">Full Name</label>
+                                <input type="text" class="form-control" id="fullNameDeposit" readonly>
+                            </div>
+                            <div hidden class="col-lg-6">
+                                <label class="fw-bold">Customer Id</label>
+                                <input type="text" class="form-control" id="emailDeposit" readonly>
+                            </div>
+                            <div hidden class="col-lg-6">
+                                <label class="fw-bold">Customer Id</label>
+                                <input type="text" class="form-control" id="addressDeposit" readonly>
+                            </div>
+                            <div hidden class="col-lg-6">
+                                <label class="fw-bold">Customer Id</label>
+                                <input type="text" class="form-control" id="phoneDeposit" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-6">
+                                <label class="fw-bold">Balance ($)</label>
+                                <input type="number" class="form-control" id="balanceDeposit" readonly>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="fw-bold">transaction Amount</label>
+                                <input type="text" class="form-control" id="transactionAmountDeposit"
+                                       name="transactionAmountDeposit">
+                            </div>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-success" id="btnDeposit">
+                        <i class="fas fa-plus"></i>
+                        Deposit
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
