@@ -1,44 +1,71 @@
-<th:block th:fragment="modalCreatte">
-  <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+<th:block th:fragment="modal-create">
+
+
+  <div class="modal fade" id="mdCreate" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+       data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">
-        <form method="post" id="frmCreate">
-        <span id="create-result"> </span>
         <div class="modal-header">
-          <h5 class="modal-title fs-5" id="exampleModalLabel">Model Create</h5>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal create customer</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <!--                    <div class="error-area"></div>-->
+          <div class="error-area hide">
+          </div>
+          <form method="post" id="frmCreateCustomer">
             <div class="row mb-3">
-              <div class="col-lg-6">
-                <label for="fullNameCre">Full Name</label>
-                <input type="text" id="fullNameCre" class="form-control">
+              <div class="col-lg-4 form-group">
+                <label for="fullNameCr" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullNameCr" name="fullNameCr"
+                       placeholder="Enter full name">
+                <div class="form-message"></div>
               </div>
-              <div class="col-lg-6">
-                <label for="emailCre">Email</label>
-                <input type="email" id="emailCre" class="form-control">
+              <div class="col-lg-4 form-group">
+                <label for="emailCr" class="form-label">Email</label>
+                <input type="email" class="form-control" id="emailCr" name="emailCr"
+                       placeholder="Enter email">
+                <div class="form-message"></div>
+              </div>
+              <div class="col-lg-4 form-group">
+                <label for="phoneCr" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phoneCr" name="phoneCr"
+                       placeholder="Enter phone">
+                <div class="form-message"></div>
               </div>
             </div>
             <div class="row mb-3">
-              <div class="col-lg-6">
-                <label for="phoneCre">Phone</label>
-                <input type="tel" id="phoneCre" class="form-control">
+              <div class="col-lg-3 form-group">
+                <label for="provinceCr" class="form-label">Province</label>
+                <select class="form-control" id="provinceCr" name="provinceCr"></select>
+                <div class="form-message"></div>
               </div>
-              <div class="col-lg-6">
-                <label for="addressCre">Address</label>
-                <input type="text" id="addressCre" class="form-control">
+              <div class="col-lg-3 form-group">
+                <label for="districtCr" class="form-label">District</label>
+                <select class="form-control" id="districtCr" name="districtCr"></select>
+                <div class="form-message"></div>
+              </div>
+              <div class="col-lg-3 form-group">
+                <label for="wardCr" class="form-label">Ward</label>
+                <select class="form-control" id="wardCr" name="wardCr"></select>
+                <div class="form-message"></div>
+              </div>
+              <div class="col-lg-3 form-group">
+                <label for="addressCr" class="form-label">Address</label>
+                <input type="text" class="form-control" id="addressCr" name="addressCr"
+                       placeholder="Enter address">
+                <div class="form-message"></div>
               </div>
             </div>
+          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="btnCreate">
-            <i class="fas fa-plus"></i>
-            Save changes
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close
           </button>
+          <button type="button" id="btnCreate" class="btn btn-outline-primary">Create</button>
         </div>
-      </form>
       </div>
     </div>
   </div>
+
 </th:block>

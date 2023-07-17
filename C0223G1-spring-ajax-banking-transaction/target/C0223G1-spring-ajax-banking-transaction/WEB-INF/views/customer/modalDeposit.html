@@ -1,59 +1,63 @@
-<th:block th:fragment="modalDeposit">
-    <div class="modal fade" id="modalDeposit" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+<th:block th:fragment="modal-deposit">
+
+    <div class="modal fade" id="mdDeposit" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
          data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
-                <form method="post" id="frmDeposit">
-                    <span id="deposit-result"> </span>
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal update customer</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="error-area hide"></div>
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal Deposit</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--          <div class="error-area" style="color: red;"></div>-->
+                    <div class="error-area hide"></div>
+                    <form method="post" id="frmDeposit">
                         <div class="row mb-3">
-                            <div class="col-lg-6">
-                                <label class="fw-bold">Customer Id</label>
-                                <input type="text" class="form-control" id="idDeposit" readonly>
+                            <div class="col-lg-2 form-group">
+                                <label for="customerIdDepo" class="form-label">Customer Id</label>
+                                <input type="text" class="form-control" id="customerIdDepo" name="customerIdDepo" readonly>
+                                <div class="form-message"></div>
                             </div>
-                            <div class="col-lg-6">
-                                <label class="fw-bold">Full Name</label>
-                                <input type="text" class="form-control" id="fullNameDeposit" readonly>
+                            <div class="col-lg-4 form-group">
+                                <label for="fullNameDepo" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullNameDepo" name="fullNameDepo" readonly>
+                                <div class="form-message"></div>
                             </div>
-                            <div hidden class="col-lg-6">
-                                <label class="fw-bold">Customer Id</label>
-                                <input type="text" class="form-control" id="emailDeposit" readonly>
+                            <div class="col-lg-4 form-group">
+                                <label for="emailDepo" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="emailDepo" name="emailDepo" readonly>
+                                <div class="form-message"></div>
                             </div>
-                            <div hidden class="col-lg-6">
-                                <label class="fw-bold">Customer Id</label>
-                                <input type="text" class="form-control" id="addressDeposit" readonly>
-                            </div>
-                            <div hidden class="col-lg-6">
-                                <label class="fw-bold">Customer Id</label>
-                                <input type="text" class="form-control" id="phoneDeposit" readonly>
+                            <div class="col-lg-2 form-group">
+                                <label for="phoneDepo" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phoneDepo" name="phoneDepo" readonly>
+                                <div class="form-message"></div>
                             </div>
                         </div>
+
                         <div class="row mb-3">
-                            <div class="col-lg-6">
-                                <label class="fw-bold">Balance ($)</label>
-                                <input type="number" class="form-control" id="balanceDeposit" readonly>
+                            <div class="col-lg-6 form-group">
+                                <label for="amountDepo" class="form-label">Balance</label>
+                                <input type="text" class="form-control" id="amountDepo" name="amountDepo" readonly>
+                                <div class="form-message"></div>
                             </div>
-                            <div class="col-lg-6">
-                                <label class="fw-bold">transaction Amount</label>
-                                <input type="text" class="form-control" id="transactionAmountDeposit"
-                                       name="transactionAmountDeposit">
+                            <div class="col-lg-6 form-group">
+                                <label for="transactionAmountDepo" class="form-label">Amount Deposit</label>
+                                <input type="text" class="form-control" id="transactionAmountDepo" name="transactionAmountDepo">
+                                <div class="form-message"></div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-outline-success" id="btnDeposit">
-                        <i class="fas fa-plus"></i>
+                    <button type="button" id="btnDeposit" class="btn btn-outline-primary">
+                        <i class="fas fa-exchange-alt"></i>
                         Deposit
                     </button>
                 </div>
-                </form>
             </div>
         </div>
     </div>
+
 </th:block>

@@ -1,3 +1,14 @@
+.container-fluid {
+    --bs-gutter-x: 0;
+}
+
+.container-fluid1 {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    background-color: #cacaca;
+}
+
 header {
     background-color: #299be4;
     height: 80px;
@@ -21,6 +32,13 @@ header {
 
 span.error {
     color: red;
+}
+
+footer .container {
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 footer {
@@ -54,4 +72,22 @@ footer {
 
 input.error {
     border-color: red;
+}
+
+table td span.select-tab {
+    border-left-width: 7px;
+    border-left-style: solid;
+    min-width: 0;
+    display: block;
+    height: 24px;
+    margin: 0 0 0 -4px;
+    padding: 0;
+}
+
+table td span.selected {
+    border-left-color: #5cb85c;
+}
+
+table td span.unselected {
+    border-left-color: #dfdfdf;
 }

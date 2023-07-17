@@ -5,7 +5,7 @@ import com.cg.model.Deposit;
 import com.cg.model.Transfer;
 import com.cg.model.Withdraw;
 import com.cg.service.customer.ICustomerService;
-import com.cg.service.depossit.IDepositService;
+import com.cg.service.deposit.IDepositService;
 import com.cg.service.transfer.ITransferService;
 import com.cg.service.withdraw.IWithdrawService;
 import org.springframework.beans.factory.annotation.Autowired;

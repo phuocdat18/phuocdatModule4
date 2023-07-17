@@ -1,50 +1,70 @@
-<th:block th:fragment="modalUpdate">
-    <div class="modal fade" id="modalUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+<th:block th:fragment="modal-update">
+
+    <div class="modal fade" id="mdUpdate" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
-                <span id="update-result"> </span>
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">Modal update</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal update customer</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <!--          <div class="error-area" style="color: red;"></div>-->
                     <div class="error-area hide"></div>
-                    <form method="post" id="frmUpdate">
+                    <form method="post" id="frmUpdateCustomer">
                         <div class="row mb-3">
-                            <div class="col-lg-6">
-                                <label class="fw-bold">Full Name</label>
-                                <input type="text" class="form-control" id="fullNameUp">
+                            <input type="hidden" id="customerIdUp">
+                            <div class="col-lg-4 form-group">
+                                <label for="fullNameUp" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullNameUp" name="fullNameUp"
+                                       placeholder="Enter full name">
+                                <div class="form-message"></div>
                             </div>
-                            <div class="col-lg-6">
-                                <label class="fw-bold">Email</label>
-                                <input type="email" class="form-control" id="emailUp">
+                            <div class="col-lg-4 form-group">
+                                <label for="emailUp" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="emailUp" name="emailUp"
+                                       placeholder="Enter email">
+                                <div class="form-message"></div>
+                            </div>
+                            <div class="col-lg-4 form-group">
+                                <label for="phoneUp" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="phoneUp" name="phoneUp"
+                                       placeholder="Enter phone">
+                                <div class="form-message"></div>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-lg-6">
-                                <label class="fw-bold">Phone</label>
-                                <input type="tel" class="form-control" id="phoneUp">
+                            <input type="hidden" id="locationRegionIdUp">
+                            <div class="col-lg-3 form-group">
+                                <label for="provinceUp" class="form-label">Province</label>
+                                <select class="form-control" id="provinceUp" name="provinceUp"></select>
+                                <div class="form-message"></div>
                             </div>
-                            <div class="col-lg-6">
-                                <label class="fw-bold">Address</label>
-                                <input type="text" class="form-control" id="addressUp">
+                            <div class="col-lg-3 form-group">
+                                <label for="districtUp" class="form-label">District</label>
+                                <select class="form-control" id="districtUp" name="districtUp"></select>
+                                <div class="form-message"></div>
                             </div>
-                            <div hidden class="col-lg-6">
-                                <label class="fw-bold">Balance</label>
-                                <input type="text" class="form-control" id="balanceUp">
+                            <div class="col-lg-3 form-group">
+                                <label for="wardUp" class="form-label">Ward</label>
+                                <select class="form-control" id="wardUp" name="wardUp"></select>
+                                <div class="form-message"></div>
+                            </div>
+                            <div class="col-lg-3 form-group">
+                                <label for="addressUp" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="addressUp" name="addressUp"
+                                       placeholder="Enter address">
+                                <div class="form-message"></div>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btnUpdate">
-                        <i class="fas fa-pencil-alt"></i>
-                        Save changes
-                    </button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="btnUpdate" class="btn btn-outline-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
+
 </th:block>

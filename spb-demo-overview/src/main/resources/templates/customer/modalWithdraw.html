@@ -1,0 +1,63 @@
+<th:block th:fragment="modal-withdraw">
+
+    <div class="modal fade" id="mdWithdraw" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal WithDraw</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--          <div class="error-area" style="color: red;"></div>-->
+                    <div class="error-area hide"></div>
+                    <form method="post" id="frmWithdraw">
+                        <div class="row mb-3">
+                            <div class="col-lg-2 form-group">
+                                <label for="customerIdWd" class="form-label">Customer Id</label>
+                                <input type="text" class="form-control" id="customerIdWd" name="customerIdWd" readonly>
+                                <div class="form-message"></div>
+                            </div>
+                            <div class="col-lg-4 form-group">
+                                <label for="fullNameWd" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullNameWd" name="fullNameWd" readonly>
+                                <div class="form-message"></div>
+                            </div>
+                            <div class="col-lg-4 form-group">
+                                <label for="emailWd" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="emailWd" name="emailWd" readonly>
+                                <div class="form-message"></div>
+                            </div>
+                            <div class="col-lg-2 form-group">
+                                <label for="phoneWd" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phoneWd" name="phoneWd" readonly>
+                                <div class="form-message"></div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-lg-6 form-group">
+                                <label for="transactionAmountWd" class="form-label">Amount Wdsit</label>
+                                <input type="text" class="form-control" id="transactionAmountWd" name="transactionAmountWd">
+                                <div class="form-message"></div>
+                            </div>
+                            <div class="col-lg-6 form-group">
+                                <label for="amountWd" class="form-label">Balance</label>
+                                <input type="text" class="form-control" id="amountWd" name="amountWd" readonly>
+                                <div class="form-message"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary " data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="btnWithdraw" class="btn btn-outline-primary">
+                        <i class="fas fa-exchange-alt"></i>
+                        Withdraw
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
